@@ -1,16 +1,13 @@
 from langchain_core.output_parsers import JsonOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_google_genai import ChatGoogleGenerativeAI
-
 from src.config import settings
-
 
 llm = ChatGoogleGenerativeAI(
     model=settings.MODEL_NAME,
     google_api_key=settings.GOOGLE_API_KEY,
     temperature=settings.TEMPERATURE,
 )
-
 
 prompt = ChatPromptTemplate.from_template(
     """
@@ -20,6 +17,7 @@ Analyze the resume and generate highly relevant search queries
 for finding REAL job postings on the web using Tavily.
 
 Resume:
+
 {resume}
 
 Return ONLY valid JSON in this exact format:
@@ -33,7 +31,6 @@ Return ONLY valid JSON in this exact format:
 }}
 
 Rules:
-
 - Identify the candidate's most suitable job role.
 - Identify experience level from the resume.
 - Extract only the most important technical skills.
@@ -51,7 +48,6 @@ Rules:
 - Keep all output concise.
 """
 )
-
 
 parser = JsonOutputParser()
 
